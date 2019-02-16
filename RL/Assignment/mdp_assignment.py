@@ -14,7 +14,7 @@ grid = [
     [EMPTY, EMPTY, EMPTY, EMPTY]
 ]
 
-[print(' | '.join(row)) for row in grid]
+# [print(' | '.join(row)) for row in grid]
 
 UP = "UP"
 DOWN = "DOWN"
@@ -102,9 +102,9 @@ for episode in range(N_EPISODES):
 
         next_state, reward, done = act(state, action)
         state = next_state
-        print("Running episode ::", episode+1)
-        print("Agent selected action ::", action)
-        print("The new state after this action is ::", state.grid)
+        # print("Running episode ::", episode+1)
+        # print("Agent selected action ::", action)
+        # print("The new state after this action is ::", state.grid)
         if done:
             break
 
@@ -136,14 +136,16 @@ def update_v_table_states(reward_matrix, zero_matrix, gamma=1):
             adjacent_values = get_adjacent_indices(i, j, 5, 4)
             length = len(adjacent_values)
             list_of_adjacent_values = [(ele/length)*zero_matrix[i][j] for ele in adjacent_values]
+
+            print(list_of_adjacent_values)
             zero_matrix[i][j] = reward_matrix[i][j] + gamma*(max(list_of_adjacent_values))
             zero_matrix[i][j] = '{:.3g}'.format(zero_matrix[i][j])
 
 """ Value-iteration algorithm """
 def value_iteration():
     V_table = np.zeros((len(grid),len(grid[0]))) #initialize value of V table
-    for x in range(num_of_states):
+    for x in range(1):
         update_v_table_states(v_reward_state, V_table, 0.6)
-        print(V_table)
+        # print(V_table)
 
 value_iteration()
